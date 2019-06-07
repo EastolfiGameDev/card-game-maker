@@ -1,0 +1,18 @@
+<div>
+    <span *ngIf="card.revealed">{{ card.name }}</span>
+    <span *ngIf="!card.revealed">--------------</span>
+
+    <button (click)="card.toggleReveal()">
+        <span *ngIf="card.revealed">Hide</span>
+        <span *ngIf="!card.revealed">Reveal</span>
+    </button>
+
+    
+    <button (click)="card.showInteractions()">Interact</button>
+
+    <div *ngIf="card.showingInteractions">
+        <div *ngFor="let interaction of card.interactions">
+            <button (click)="interaction.interact()">{{ interaction.label }}</button>
+        </div>
+    </div>
+</div>

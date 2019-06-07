@@ -1,0 +1,35 @@
+<input #playerInput type="text" placeholder="Player Name" />
+<button (click)="createPlayer(playerInput)">Create Player</button>
+
+<hr />
+<div *ngIf="player">
+    <h3>Player: {{ player.name }}</h3>
+    <h4 *ngFor="let resource of player.resources">
+        {{ resource.name }}: {{ resource.value }}
+    </h4>
+    <div *ngIf="player.hand?.length">
+        <h4>Hand:</h4>
+        <span *ngFor="let card of player.hand">{{ card.structure.name }}</span>
+    </div>
+
+    <button (click)="setupBoard()">Setup Board</button>
+</div>
+
+<div *ngIf="decks?.length">
+    <div *ngFor="let deck of decks">
+        <h5>{{ deck.name }} ({{ deck.cards.length }} cards)</h5>
+        <ng-container *ngIf="deck.cards?.length">
+            <cgm-card [card]="deck.getTopCard()"></cgm-card>
+            <!-- <h6>
+                <span *ngIf="deck.getTopCard().revealed">{{ deck.getTopCard().structure.name }}</span>
+                <span *ngIf="!deck.getTopCard().revealed">--------------</span>
+            </h6> -->
+            <!-- <button (click)="deck.toggleTopCard()">
+                <span *ngIf="deck.getTopCard().revealed">Hide Top</span>
+                <span *ngIf="!deck.getTopCard().revealed">Reveal Top</span>
+            </button> -->
+            <button (click)="drawCard(deck)">Draw</button>
+            <!-- <button (click)="deck.interactTopCard()">Interact</button> -->
+        </ng-container>
+    </div>
+</div>
